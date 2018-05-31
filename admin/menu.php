@@ -57,9 +57,9 @@ class MRWOOO_ADMIN_Menu {
         );
 
         if(is_plugin_active('mrwooo-gdpr/mrwooo-gdpr.php')){
-            $page_title = __('User personal data', 'mrwooo');
-            $menu_title = __('User personal data', 'mrwooo');
-            $menu_slug = 'mrwooo-user-personal-data';
+            $page_title = __('Users data registry', 'mrwooo');
+            $menu_title = __('Users data registry', 'mrwooo');
+            $menu_slug = 'mrwooo-users-data-registry';
             $callback = 'tabsMrWoooGdpr';
         
             add_submenu_page(
@@ -208,19 +208,19 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
     // tabs  
     $tabs = array(
         'settings' => __('Settings', 'mrwooo'),
-        'export' => __('Export Users Data', 'mrwooo'),
+        'export' => __('Export', 'mrwooo'),
         'support' => __('Support', 'mrwooo')
     );
     $o .= ' <h2 class="nav-tab-wrapper">';
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
-        $o .= '<a class="nav-tab"'.$class.'" href="?page=mrwooo-user-personal-data&tab='.$tab.'">'.$name.'</a>';
+        $o .= '<a class="nav-tab"'.$class.'" href="?page=mrwooo-users-data-registry&tab='.$tab.'">'.$name.'</a>';
     }
     $o .= ' </h2>';
     // panels
     $qstring = $_SERVER['argv'][0];
     switch($qstring){
-        case 'page=mrwooo-user-personal-data&tab=settings':
+        case 'page=mrwooo-users-data-registry&tab=settings':
             $o .= ' <h3>'.__('Check out our documentation','mrwooo').'</h3>';
             $o .= ' <p>'.__('We <i class="fa fa-heart"></i> coding RestFull interface to build awesome mobile apps or connect your wordpress website to thirdy part webapps.', 'mrwooo').'</p>';
             $o .= ' <p>'.__('To make all more simple we have dedicated website for each plugin where you\'ll find methods and examples.','mrwooo').'</p>';
@@ -231,14 +231,17 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
             $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo Automation plugin</a></p>';    
             $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo CRM plugin</a></p>'; 
             break;
-        case 'page=mrwooo-user-personal-data&tab=export':
-            $o .= ' <h3>'.__('Users personal data plugins & services','mrwooo').'</h3>';
-            $o .= ' <p>'.__('This feature permits to collects <strong>plugins and services</strong> that manage users personal data.', 'mrwooo').'</p>';
+        case 'page=mrwooo-users-data-registry&tab=export':
+            $urlPersonalData = '<a href="'.get_site_url().'/wp-admin/tools.php?page=export_personal_data" title="Report">';
+            $textPersonalData = 'If you need to know specific data use %s Export personal data feature" to do it.';
+
+            $o .= ' <h3>'.__('Users data registry','mrwooo').'</h3>';
+            $o .= ' <p>'.__('This feature permits to collects <strong>all users data</strong> organized into registry GDPR compliant.', 'mrwooo').'</p>';
             $o .= ' <p>'.__('As required by privacy GDPR, you have all infos collect in one file.', 'mrwooo').'</p>';
-            $o .= ' <p>'.__('If you need to know specific data use <a href="'.get_site_url().'/wp-admin/tools.php?page=export_personal_data" title="Report"</a>"Export personal data feature" to do it.', 'mrwooo').'</p>';
+            $o .= ' <p>'.sprintf(__($textPersonalData, 'mrwooo'), $urlPersonalData).'</a></p>';
             $o .= '  <form action="'.get_site_url().'/wp-admin/admin-post.php" method="post">';
             $o .= '   <input type="hidden" name="action" value="users_data">';
-            $o .= get_submit_button(__('Export data (.csv)', 'mrwooo', 'mrwooo'), 'primary', 'export_users_data', false);
+            $o .= get_submit_button(__('Export Users data registry (.csv)', 'mrwooo', 'mrwooo'), 'primary', 'export_users_data', false);
             $o .= '  </form>';
             $o .= ' <hr>';
             $o .= ' <p><a href="https://github.com/dleone81/mrwooo-api-core/issues" title="Find a bug?" target="_new">'.__('Bug? Open a ticket on GitHub','mrwooo').'</a></p>';            
