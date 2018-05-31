@@ -5,7 +5,7 @@ global $mrwooo_db_version;
 // use the same version of that will be committed
 $mrwooo_db_version = '0.1.0';
 
-function loggerInstall () {
+function update() {
     global $wpdb;
  
     $table_name = $wpdb->prefix . "mrwooo_logger";

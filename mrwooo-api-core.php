@@ -53,10 +53,10 @@ require_once(MRWOOOAPICORE_PLUGIN_DIR.'rest/auth.php');
 require_once(MRWOOOAPICORE_PLUGIN_DIR.'rest/check.php');
 
 // sql
-require_once(MRWOOOAPICORE_PLUGIN_DIR.'sql/logger.php');
+require_once(MRWOOOAPICORE_PLUGIN_DIR.'sql/schema.php');
 
 // update db
-register_activation_hook( __FILE__, 'loggerInstall' );
+register_activation_hook( __FILE__, 'update' );
 
 
 // action
