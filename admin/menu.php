@@ -57,9 +57,9 @@ class MRWOOO_ADMIN_Menu {
         );
 
         if(is_plugin_active('mrwooo-gdpr/mrwooo-gdpr.php')){
-            $page_title = __('Users data registry', 'mrwooo');
-            $menu_title = __('Users data registry', 'mrwooo');
-            $menu_slug = 'mrwooo-users-data-registry';
+            $page_title = __('Users data-register', 'mrwooo');
+            $menu_title = __('Users data-register', 'mrwooo');
+            $menu_slug = 'mrwooo-users-data-register';
             $callback = 'tabsMrWoooGdpr';
         
             add_submenu_page(
@@ -208,19 +208,21 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
     // tabs  
     $tabs = array(
         'settings' => __('Settings', 'mrwooo'),
-        'export' => __('Export', 'mrwooo'),
+        'import-export' => __('Import / Export', 'mrwooo'),
         'support' => __('Support', 'mrwooo')
     );
     $o .= ' <h2 class="nav-tab-wrapper">';
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
-        $o .= '<a class="nav-tab"'.$class.'" href="?page=mrwooo-users-data-registry&tab='.$tab.'">'.$name.'</a>';
+        $o .= '<a class="nav-tab"'.$class.'" href="?page=mrwooo-users-data-register&tab='.$tab.'">'.$name.'</a>';
     }
     $o .= ' </h2>';
     // panels
     $qstring = $_SERVER['argv'][0];
     switch($qstring){
-        case 'page=mrwooo-users-data-registry&tab=settings':
+        case 'page=mrwooo-users-data-register&tab=settings':
+            // echo MRWOOO_LIBS_Settings::getMetaOptions();
+            
             $o .= ' <h3>'.__('Check out our documentation','mrwooo').'</h3>';
             $o .= ' <p>'.__('We <i class="fa fa-heart"></i> coding RestFull interface to build awesome mobile apps or connect your wordpress website to thirdy part webapps.', 'mrwooo').'</p>';
             $o .= ' <p>'.__('To make all more simple we have dedicated website for each plugin where you\'ll find methods and examples.','mrwooo').'</p>';
@@ -231,7 +233,7 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
             $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo Automation plugin</a></p>';    
             $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo CRM plugin</a></p>'; 
             break;
-        case 'page=mrwooo-users-data-registry&tab=export':
+        case 'page=mrwooo-users-data-register&tab=import-export':
             $urlPersonalData = '<a href="'.get_site_url().'/wp-admin/tools.php?page=export_personal_data" title="Report">';
             $textPersonalData = 'If you need to know specific data use %s Export personal data feature" to do it.';
 
@@ -239,10 +241,23 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
             $o .= ' <p>'.__('This feature permits to collects <strong>all users data</strong> organized into registry GDPR compliant.', 'mrwooo').'</p>';
             $o .= ' <p>'.__('As required by privacy GDPR, you have all infos collect in one file.', 'mrwooo').'</p>';
             $o .= ' <p>'.sprintf(__($textPersonalData, 'mrwooo'), $urlPersonalData).'</a></p>';
+            $o .= ' <div class="card mrwooo">';
+            $o .= '   <h3>'.__('Import data from .csv', 'mrwooo').'</h3>';
+            $o .= '   <form action="'.get_site_url().'/wp-admin/admin-post.php" method="post" enctype="multipart/form-data">';
+            $o .= '     <input type="text" name="metakey">';
+            $o .= '     <input type="hidden" name="action" value="import_users_data" >';
+            $o .= '     <input type="hidden" name="'.$metakey.'" multiple="false">';
+            $o .= '     <input type="file" name="import" multiple="false">';
+            $o .= get_submit_button(__('Import Users to data-register (.csv)', 'mrwooo'), 'primary', 'import_users_data', false);            
+            $o .= '   </form>';
+            $o .= ' </div>';
+            $o .= ' <div class="card mrwooo">';
+            $o .= '  <h3>'.__('Export Users data-register', 'mrwooo').'</h3>';
             $o .= '  <form action="'.get_site_url().'/wp-admin/admin-post.php" method="post">';
             $o .= '   <input type="hidden" name="action" value="users_data">';
-            $o .= get_submit_button(__('Export Users data registry (.csv)', 'mrwooo', 'mrwooo'), 'primary', 'export_users_data', false);
+            $o .= get_submit_button(__('Export Users data registry (.csv)', 'mrwooo'), 'primary', 'export_users_data', false);
             $o .= '  </form>';
+            $o .= ' </div>';
             $o .= ' <hr>';
             $o .= ' <p><a href="https://github.com/dleone81/mrwooo-api-core/issues" title="Find a bug?" target="_new">'.__('Bug? Open a ticket on GitHub','mrwooo').'</a></p>';            
             break;
