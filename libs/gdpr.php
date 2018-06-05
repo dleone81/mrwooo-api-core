@@ -1,5 +1,5 @@
 <?php
-class MRWOOO_LIBS_Gdpr {
+class MRWOOO_LIBS_Gdpr_Logger {
   public static function init() {
     if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
         return false;
@@ -120,7 +120,7 @@ class MRWOOO_LIBS_Gdpr {
   public static function loggerEraser( $erasers ) {
     $erasers['mrwooo-api-core'] = array(
         'eraser_friendly_name' => __( 'MrWooo API Core', 'mrwooo' ),
-        'callback' => array('MRWOOO_LIBS_Gdpr', 'eraser'),
+        'callback' => array('MRWOOO_LIBS_Gdpr_Logger', 'eraser'),
       );
     return $erasers;
   }
