@@ -25,3 +25,9 @@ p.mrwooo.inline {
 p.mrwooo.inline>span {
     font-style: italic;
 }
+.wrap.mrwooo > .card.mrwooo {
+    width:40%;
+    max-width:45%!important;
+    display:inline-block!important;
+    margin:0 2.5% 2.5% 0!important;
+}
