@@ -31,3 +31,12 @@ p.mrwooo.inline>span {
     display:inline-block!important;
     margin:0 2.5% 2.5% 0!important;
 }
+/* ajax */
+.mrwooo.ajaxloader {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    background: rgba(255,255,255,.65);
+    z-index: 32000;
+}
