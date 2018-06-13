@@ -234,6 +234,9 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
             $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo CRM plugin</a></p>'; 
             break;
         case 'page=mrwooo-users-data-register&tab=import-export':
+            // created hook for import / export
+            do_action('mrwooo_gdpr_import_export');
+
             $urlPersonalData = '<a href="'.get_site_url().'/wp-admin/tools.php?page=export_personal_data" title="Report">';
             $textPersonalData = 'If you need to know specific data use %s Export personal data feature" to do it.';
 
@@ -243,18 +246,18 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
             $o .= ' <p>'.sprintf(__($textPersonalData, 'mrwooo'), $urlPersonalData).'</a></p>';
             $o .= ' <div class="card mrwooo">';
             $o .= '   <h3>'.__('Import data from .csv', 'mrwooo').'</h3>';
-            $o .= '   <form action="'.get_site_url().'/wp-admin/admin-post.php" method="post" enctype="multipart/form-data">';
+            $o .= '   <form id="importUsersData" action="#" enctype="multipart/form-data">';
             $o .= '     <input type="text" name="metakey">';
-            $o .= '     <input type="hidden" name="action" value="import_users_data" >';
+            $o .= '     <input type="hidden" name="action" value="importUsersData" >';            
             $o .= '     <input type="hidden" name="'.$metakey.'" multiple="false">';
-            $o .= '     <input type="file" name="import" multiple="false">';
+            $o .= '     <input type="file" id="filename" name="import" multiple="false">';
             $o .= get_submit_button(__('Import Users to data-register (.csv)', 'mrwooo'), 'primary', 'import_users_data', false);            
             $o .= '   </form>';
             $o .= ' </div>';
             $o .= ' <div class="card mrwooo">';
             $o .= '  <h3>'.__('Export Users data-register', 'mrwooo').'</h3>';
-            $o .= '  <form action="'.get_site_url().'/wp-admin/admin-post.php" method="post">';
-            $o .= '   <input type="hidden" name="action" value="users_data">';
+            $o .= '  <form id="exportUsersData" action="#">';
+            $o .= '   <input type="hidden" name="action" value="usersData">';
             $o .= get_submit_button(__('Export Users data registry (.csv)', 'mrwooo'), 'primary', 'export_users_data', false);
             $o .= '  </form>';
             $o .= ' </div>';
