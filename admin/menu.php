@@ -1,5 +1,5 @@
 <?php
-class MRWOOO_ADMIN_Menu {
+class MRWOOO_API_ADMIN_Menu {
     public static function init() {
         if ( ! function_exists( 'add_menu_page' ) ) {
             return false;
@@ -90,6 +90,10 @@ class MRWOOO_ADMIN_Menu {
 }
 
 function tabsMrWooo( $current = 'start' ) {
+
+    // notice
+    do_action('mrwooo_api_core_ajax');
+    
     $o .= '<div class="wrap mrwooo">';
     $o .= ' <h1>Mr. Wooo</h1>';
     // tabs  
@@ -149,6 +153,10 @@ function tabsMrWooo( $current = 'start' ) {
 
 # ref: https://codex.wordpress.org/Creating_Options_Pages
 function settingsHtmlMrWooo(){
+
+    // notice
+    do_action('mrwooo_api_core_ajax');
+    
     $o .= '<div class="wrap mrwooo">';
     $o .= ' <h1>Mr. Wooo</h1>';
     $o .= ' <hr>';
@@ -203,6 +211,10 @@ function loggerHtmlMrWoooApi(){
 }
 
 function tabsMrWoooGdpr( $current = 'settings' ) {
+
+    // notice
+    do_action('mrwooo_api_core_ajax');
+    
     $o .= '<div class="wrap mrwooo">';
     $o .= ' <h1>Mr. Wooo</h1>';
     // tabs  
@@ -286,5 +298,4 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
     $o .= '</div>'; 
     echo $o;
 }
-
 ?>
