@@ -1,7 +1,7 @@
 <?php
 	use \Firebase\JWT\JWT;
 
-	class MRWOOO_LIB_Auth {
+	class MRWOOO_API_LIBS_Auth {
 		/*
 		* This method check is user exists
 		* then create and return JWT token
