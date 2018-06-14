@@ -40,9 +40,11 @@ require_once(MRWOOOAPICORE_PLUGIN_DIR.'admin/menu.php');
 require_once(MRWOOOAPICORE_PLUGIN_DIR.'db/logger.php');
 
 // libs
+require_once(MRWOOOAPICORE_PLUGIN_DIR.'libs/ajax.php');
 require_once(MRWOOOAPICORE_PLUGIN_DIR.'libs/auth.php');
 require_once(MRWOOOAPICORE_PLUGIN_DIR.'libs/check.php');
 require_once(MRWOOOAPICORE_PLUGIN_DIR.'libs/gdpr.php');
+require_once(MRWOOOAPICORE_PLUGIN_DIR.'libs/settings.php');
 require_once(MRWOOOAPICORE_PLUGIN_DIR.'libs/utilities.php');
 
 // rest
@@ -60,14 +62,15 @@ register_activation_hook( __FILE__, 'update' );
 
 
 // action
-add_action('admin_menu',    array('MRWOOO_ADMIN_Menu','init'));
-add_action('admin_init', array('MRWOOO_LIBS_Gdpr', 'init'));
-add_action('rest_api_init', array('MRWOOO_API_Auth','init'));
-add_action('rest_api_init', array('MRWOOO_API_Check','init'));
+add_action('admin_menu',    array('MRWOOO_API_ADMIN_Menu','init'));
+add_action('admin_init', array('MRWOOO_LIBS_Gdpr_Logger', 'init'));
+add_action('rest_api_init', array('MRWOOO_API_LIBS_Auth','init'));
+add_action('rest_api_init', array('MRWOOO_API_LIBS_Check','init'));
+add_action('mrwooo_api_core_ajax', array('MRWOOO_API_LIBS_Ajax', 'loader'));
 
 // filter
-add_filter('wp_privacy_personal_data_exporters', array('MRWOOO_LIBS_Gdpr', 'loggerExporter'), 10);
-add_filter('wp_privacy_personal_data_erasers', array('MRWOOO_LIBS_Gdpr', 'loggerEraser'), 10);
+add_filter('wp_privacy_personal_data_exporters', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerExporter'), 10);
+add_filter('wp_privacy_personal_data_erasers', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerEraser'), 10);
 
 // adding CSS
 wp_register_style('fontawesome', 'https://use.fontawesome.com/releases/v5.0.13/css/all.css');
@@ -78,6 +81,8 @@ wp_enqueue_style('style');
 // adding JS
 // adding js overlay image
 wp_register_script( 'code', plugins_url('admin/js/code.js', __FILE__), array('jquery') );
-wp_enqueue_script("code");  
+wp_enqueue_script("code");
+wp_register_script( 'notice', plugins_url('admin/js/notice.js', __FILE__), array('jquery') );
+wp_enqueue_script("notice");
 
 ?>
