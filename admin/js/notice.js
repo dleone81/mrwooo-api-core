@@ -30,8 +30,8 @@ var notice = {
 
         if(method == 'exportUsersData'){
             switch(status){
-                case '200':
-                case '201':
+                case 200:
+                case 201:
                     var msg = "<?php __('File ready. Download now!', 'mrwooo'); ?>";
                     var a = jQuery('<a>');
 
