@@ -30,8 +30,9 @@ var notice = {
 
         if(method == 'exportUsersData'){
             switch(status){
+                case '200':
                 case '201':
-                    var msg = 'File ready. Download now!';
+                    var msg = "<?php __('File ready. Download now!', 'mrwooo'); ?>";
                     var a = jQuery('<a>');
 
                     container.addClass('notice-info');
@@ -50,17 +51,17 @@ var notice = {
 
         } else if(method == 'importUsersData') {
             switch(status){
-                case '202':
+                case 202:
                     container.addClass('notice-success');
                     jQuery(p).html(msg);
                     jQuery('div#wpbody-content').prepend(container);
                     break;
-                case '400':
+                case 400:
                     container.addClass('notice-warning');
                     jQuery(p).html(msg);
                     jQuery('div#wpbody-content').prepend(container);
                     break;
-                case '406':
+                case 406:
                     container.addClass('notice-error');
                     jQuery(p).html(msg);
                     jQuery('div#wpbody-content').prepend(container);
