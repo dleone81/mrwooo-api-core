@@ -75,7 +75,7 @@ add_filter('wp_privacy_personal_data_erasers', array('MRWOOO_LIBS_Gdpr_Logger', 
 // adding CSS
 wp_register_style('fontawesome', 'https://use.fontawesome.com/releases/v5.0.13/css/all.css');
 wp_enqueue_style('fontawesome');
-wp_register_style('style', plugins_url('admin/css/style.css', __FILE__) );
+wp_register_style('style', plugins_url('admin/css/mrwooo_api_core_style.css', __FILE__) );
 wp_enqueue_style('style');
 
 // adding JS

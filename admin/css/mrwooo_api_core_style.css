@@ -1,0 +1,42 @@
+/* ul li */
+.mrwooo ul {
+    list-style-type:none;
+}
+.mrwooo li {
+    margin-left:10px;
+}
+.mrwooo i.fa,
+.mrwooo i.fab {
+    margin-right:5px!important;
+}
+.mrwooo i.fa.fa-check {
+    color:green;
+}
+.mrwooo i.fa.fa-clock {
+    color:orange;
+}
+.mrwooo i.fa.fa-calendar-alt {
+    color:red;
+}
+p.mrwooo.inline {
+    display:inline-block;
+    margin-right:10px;
+}
+p.mrwooo.inline>span {
+    font-style: italic;
+}
+.wrap.mrwooo > .card.mrwooo {
+    width:40%;
+    max-width:45%!important;
+    display:inline-block!important;
+    margin:0 2.5% 2.5% 0!important;
+}
+/* ajax */
+.mrwooo.ajaxloader {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    background: rgba(255,255,255,.65);
+    z-index: 32000;
+}
