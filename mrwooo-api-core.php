@@ -72,17 +72,33 @@ add_action('mrwooo_api_core_ajax', array('MRWOOO_API_LIBS_Ajax', 'loader'));
 add_filter('wp_privacy_personal_data_exporters', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerExporter'), 10);
 add_filter('wp_privacy_personal_data_erasers', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerEraser'), 10);
 
-// adding CSS
-wp_register_style('fontawesome', 'https://use.fontawesome.com/releases/v5.0.13/css/all.css');
-wp_enqueue_style('fontawesome');
-wp_register_style('style', plugins_url('admin/css/mrwooo_api_core_style.css', __FILE__) );
-wp_enqueue_style('style');
+// ref: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_enqueue_scripts
+function mrwooo_api_core_script($hook){
+    
+    $toplevel = array(  
+        'toplevel_page_mrwooo',
+        'toplevel_page_mrwooo-settings',
+        'toplevel_page_mrwooo-api',
+        'toplevel_page_mrwooo-users-data-register',
+        'toplevel_page_mrwooo-logger'
+    );
 
-// adding JS
-// adding js overlay image
-wp_register_script( 'code', plugins_url('admin/js/code.js', __FILE__), array('jquery') );
-wp_enqueue_script("code");
-wp_register_script( 'notice', plugins_url('admin/js/notice.js', __FILE__), array('jquery') );
-wp_enqueue_script("notice");
+    if($hook != in_array($hook, $toplevel)) {
+        return;
+    }
 
+    // adding CSS
+    wp_register_style('fontawesome', 'https://use.fontawesome.com/releases/v5.0.13/css/all.css');
+    wp_enqueue_style('fontawesome');
+    wp_register_style('mrwooo_api_core', plugins_url('admin/css/style.css', __FILE__) );
+    wp_enqueue_style('mrwooo_api_core');
+
+    // adding JS
+    // adding js overlay image
+    wp_register_script( 'code', plugins_url('admin/js/code.js', __FILE__), array('jquery') );
+    wp_enqueue_script("code");
+    wp_register_script( 'notice', plugins_url('admin/js/notice.js', __FILE__), array('jquery') );
+    wp_enqueue_script("notice");
+}
+add_action( 'admin_enqueue_scripts', 'mrwooo_api_core_script' );
 ?>
