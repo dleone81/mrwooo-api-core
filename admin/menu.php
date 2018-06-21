@@ -93,6 +93,8 @@ function tabsMrWooo( $current = 'start' ) {
 
     // notice
     do_action('mrwooo_api_core_ajax');
+
+    $o = '';
     
     $o .= '<div class="wrap mrwooo">';
     $o .= ' <h1>Mr. Wooo</h1>';
@@ -156,6 +158,8 @@ function settingsHtmlMrWooo(){
 
     // notice
     do_action('mrwooo_api_core_ajax');
+
+    $o = '';
     
     $o .= '<div class="wrap mrwooo">';
     $o .= ' <h1>Mr. Wooo</h1>';
@@ -192,6 +196,8 @@ function loggerHtmlMrWoooApi(){
     
     $testListTable = new MRWOOO_LIBS_Utilities_List_Table();
     $testListTable->prepare_items();
+
+    $o = '';
     
     $o .= '<div class="wrap mrwooo">';
     $o .= '<h2>'.__('Mr. Wooo Logger', 'mrwooo').'</h2>';
@@ -214,6 +220,8 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
 
     // notice
     do_action('mrwooo_api_core_ajax');
+
+    $o = '';
     
     $o .= '<div class="wrap mrwooo">';
     $o .= ' <h1>Mr. Wooo</h1>';
