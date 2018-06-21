@@ -77,10 +77,10 @@ function mrwooo_api_core_script($hook){
     
     $toplevel = array(  
         'toplevel_page_mrwooo',
-        'toplevel_page_mrwooo-settings',
-        'toplevel_page_mrwooo-api',
-        'toplevel_page_mrwooo-users-data-register',
-        'toplevel_page_mrwooo-logger'
+        'mrwooo_page_mrwooo-settings',
+        'mrwooo_page_mrwooo-api',
+        'mrwooo_page_mrwooo-users-data-register',
+        'mrwooo_page_mrwooo-logger'
     );
 
     if($hook != in_array($hook, $toplevel)) {
@@ -96,9 +96,10 @@ function mrwooo_api_core_script($hook){
     // adding JS
     // adding js overlay image
     wp_register_script( 'code', plugins_url('admin/js/code.js', __FILE__), array('jquery') );
-    wp_enqueue_script("code");
+    wp_enqueue_script('code');
     wp_register_script( 'notice', plugins_url('admin/js/notice.js', __FILE__), array('jquery') );
-    wp_enqueue_script("notice");
+    wp_enqueue_script('notice');
+
 }
 add_action( 'admin_enqueue_scripts', 'mrwooo_api_core_script' );
 ?>
