@@ -29,7 +29,7 @@ class MRWOOO_DB_Logger {
             die('[MRWOOO_DB_Logger::create] PDO Error: '.$e->getMessage());
         }
     }
-    public static function get(){
+    public static function get($per_page){
         try {
             global $wpdb;
             

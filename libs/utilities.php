@@ -72,7 +72,7 @@ class MRWOOO_LIBS_Utilities_List_Table extends WP_List_Table {
         $this->_column_headers = array($columns, $hidden, $sortable);
         $this->process_bulk_action();
         
-        $logs = MRWOOO_DB_Logger::get();
+        $logs = MRWOOO_DB_Logger::get($per_page);
 
         $dataTemp = array();
         $i = 0;
