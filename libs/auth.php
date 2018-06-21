@@ -3,9 +3,15 @@
 
 	class MRWOOO_API_LIBS_Auth {
 		/*
-		* This method check is user exists
-		* then create and return JWT token
-		* $data array
+		*	This method check is user exists
+		*	then create and return JWT token
+		*	$data array
+		*
+		*	JSON sample
+			{
+				"user": "your.email@address.com",
+				"password": "yourpassword"
+			}
 		*/
 		public static function user($data) {
 			$user = $data['user'];
