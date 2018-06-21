@@ -60,17 +60,24 @@ require_once(MRWOOOAPICORE_PLUGIN_DIR.'sql/schema.php');
 // update db
 register_activation_hook( __FILE__, 'update' );
 
+// init
+require_once(MRWOOOAPICORE_PLUGIN_DIR.'class.mrwooo-api-core.php');
+add_action('init', array('MRWOOO_API_CORE', 'init'));
+
+require_once(MRWOOOAPICORE_PLUGIN_DIR.'class.mrwooo-api-core-rest.php');
+add_action('init', array('MRWOOO_API_CORE_REST', 'init'));
+
 
 // action
-add_action('admin_menu',    array('MRWOOO_API_ADMIN_Menu','init'));
-add_action('admin_init', array('MRWOOO_LIBS_Gdpr_Logger', 'init'));
+/* add_action('admin_menu',    array('MRWOOO_API_ADMIN_Menu','init'));
+// add_action('admin_init', array('MRWOOO_LIBS_Gdpr_Logger', 'init'));
 add_action('rest_api_init', array('MRWOOO_API_LIBS_Auth','init'));
 add_action('rest_api_init', array('MRWOOO_API_LIBS_Check','init'));
-add_action('mrwooo_api_core_ajax', array('MRWOOO_API_LIBS_Ajax', 'loader'));
+add_action('mrwooo_api_core_ajax', array('MRWOOO_API_LIBS_Ajax', 'loader')); */
 
 // filter
-add_filter('wp_privacy_personal_data_exporters', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerExporter'), 10);
-add_filter('wp_privacy_personal_data_erasers', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerEraser'), 10);
+//add_filter('wp_privacy_personal_data_exporters', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerExporter'), 10);
+//add_filter('wp_privacy_personal_data_erasers', array('MRWOOO_LIBS_Gdpr_Logger', 'loggerEraser'), 10);
 
 // ref: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_enqueue_scripts
 function mrwooo_api_core_script($hook){
