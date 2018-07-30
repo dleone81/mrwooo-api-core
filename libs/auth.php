@@ -14,33 +14,47 @@
 			}
 		*/
 		public static function user($data) {
+
 			$user = $data['user'];
 			$password = $data['password'];
-			$auth = wp_authenticate($user, $password);
+			$token = $data['token'];
+			$event = $_SERVER['REQUEST_URI'];							
+			$remote	= $_SERVER['REMOTE_ADDR'];
 
-			$event =	$_SERVER['REQUEST_URI'];							
-			$remote	=	$_SERVER['REMOTE_ADDR'];
+			// check if token is valid
+			// else check if user exists, check credentials
+			// return JWT token
 
-			if($auth->data){
-				$id = $auth->data->ID;
-				$email = $auth->data->user_email;	
+			if(!empty($token)){
+				$res = JWT::decode($token, MRWOOOJWTKEY, array('HS256'));
+				$id = $res->id;
+				MRWOOO_DB_Logger::create($id, $event.'/:jwt', '200', $remote);
+				return true;
+				
+			} else {
+				$auth = wp_authenticate($user, $password);
 
-				$token = array(
-					'id' => $id,
-					'email'	=> $email
-				);
-				$jwt = JWT::encode($token, MRWOOOJWTKEY);
+				if($auth->data){
+					$id = $auth->data->ID;
+					$email = $auth->data->user_email;	
 
-				MRWOOO_DB_Logger::create($id, $event, '200', $remote);
-				return $jwt;
-			}
-			if($auth->errors){
-				$message = 'Authentication failed';
+					$token = array(
+						'id' => $id,
+						'email'	=> $email
+					);
+					$jwt = JWT::encode($token, MRWOOOJWTKEY);
 
-				// log
-				MRWOOO_DB_Logger::create(0, $event, '401', $remote);
-				return new WP_Error( 'Unhautorized', $message, array( 'status' => 401 ) );
-			}
+					MRWOOO_DB_Logger::create($id, $event, '200', $remote);
+					return $jwt;
+				}
+				if($auth->errors){
+					$message = 'Authentication failed';
+
+					// log
+					MRWOOO_DB_Logger::create(0, $event, '401', $remote);
+					return new WP_Error( 'Unhautorized', $message, array( 'status' => 401 ) );
+				}
+			}	
 		}
 		/*
 		* This method can be use to filter blacklisted IP
@@ -56,7 +70,7 @@
 		/*
 		* Thismethod create a provider token
 		*/
-		public static function CreateJWTToken($provider){
+		/*public static function CreateJWTToken($provider){
 
 			// get providerId
 			$providerId = Provider::Get($provider);
@@ -77,12 +91,12 @@
 			} else {
 				return new Tonic\Response(Tonic\Response::UNAUTHORIZED);
 			}
-		}
+		}*/
 		/*
 		* Thismethod validate a provider token
 		*/
 		// validate JWT token
-		public static function ValidateJWTToken(){
+		/*public static function ValidateJWTToken(){
 
 			$auth = isset($_SERVER['HTTP_X_AUTH']) ? $_SERVER['HTTP_X_AUTH'] : '';
 			// SL: override http_x_auth via session variable
@@ -126,6 +140,6 @@
 			else{
 				return NULL;
 			}
-		}
+		}*/
 	}
 ?>
