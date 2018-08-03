@@ -9,7 +9,6 @@ class MRWOOO_API_ADMIN_Menu {
         $menu_title = __('MrWooo', 'mrwooo');
         $capability = 'manage_options';
         $menu_slug = 'mrwooo';
-        //$callback_menu = 'settingsHtmlMrWooo';
         $callback_menu = 'tabsMrWooo';        
         $icon_url = 'dashicons-smiley';
         $position = 59;
@@ -89,15 +88,25 @@ class MRWOOO_API_ADMIN_Menu {
     }
 }
 
-function tabsMrWooo( $current = 'start' ) {
+function tabsMrWooo() {
 
     // notice
     do_action('mrwooo_api_core_ajax');
+
+    $qstring = $_SERVER['argv'][0];
+
+    // panels
+    parse_str($_SERVER['argv'][0], $panel);
+    if(empty($panel['tab']))
+        $current='start';
+    else
+        $current = $panel['tab'];
 
     $o = '';
     
     $o .= '<div class="wrap mrwooo">';
     $o .= ' <h1>Mr. Wooo</h1>';
+    
     // tabs  
     $tabs = array(
         'start' => __('Start now', 'mrwooo'),
@@ -107,13 +116,13 @@ function tabsMrWooo( $current = 'start' ) {
     $o .= ' <h2 class="nav-tab-wrapper">';
     foreach( $tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
-        $o .= '<a class="nav-tab"'.$class.'" href="?page=mrwooo&tab='.$tab.'">'.$name.'</a>';
+        $o .= '<a class="nav-tab'.$class.'" href="?page=mrwooo&tab='.$tab.'">'.$name.'</a>';
     }
     $o .= ' </h2>';
-    // panels
-    $qstring = $_SERVER['argv'][0];
+    
     switch($qstring){
         case 'page=mrwooo&tab=doc':
+            $current = 'doc';
             $o .= ' <h3>'.__('Check out our documentation','mrwooo').'</h3>';
             $o .= ' <p>'.__('We <i class="fa fa-heart"></i> coding RestFull interface to build awesome mobile apps or connect your wordpress website to thirdy part webapps.', 'mrwooo').'</p>';
             $o .= ' <p>'.__('To make all more simple we have dedicated website for each plugin where you\'ll find methods and examples.','mrwooo').'</p>';
@@ -153,46 +162,10 @@ function tabsMrWooo( $current = 'start' ) {
     echo $o;
 }
 
-# ref: https://codex.wordpress.org/Creating_Options_Pages
-function settingsHtmlMrWooo(){
+function loggerHtmlMrWoooApi(){
 
     // notice
     do_action('mrwooo_api_core_ajax');
-
-    $o = '';
-    
-    $o .= '<div class="wrap mrwooo">';
-    $o .= ' <h1>Mr. Wooo</h1>';
-    $o .= ' <hr>';
-    $o .= ' <p>'.__('Thanks for using <strong>Mr.Wooo plugins</strong>', 'mrwooo').'</p>';
-    $o .= ' <p>'.__('MrWooo is a bundle of free plugins that allow you to add new powerful feature to your Wordpress website.', 'mrwooo').'</p>';  
-    $o .= ' <p>'.__('We offer great functionality as SaaS (software as a service) that allow you to:', 'mrwooo').'</p>';
-    $o .= ' <ul>';
-    $o .= '     <li><i class="fa fa-check"></i>'.__('use our API methods to connect your app or webapp to Wordpress, in safe mode :)','wooo-api').'</li>';
-    $o .= '     <li><i class="fa fa-clock"></i>'.__('send newsletters from WP backend and get a simple report that show user activity','wooo-api').'</li>';
-    $o .= '     <li><i class="fa fa-calendar-alt"></i>'.__('create transactional emails and trigger these to Wordpress or <strong>WooCommerce hook</strong>','wooo-api').'</li>';    
-    $o .= '     <li><i class="fa fa-calendar-alt"></i>'.__('integrate this features with <strong>WooCommerce plugin</strong>','wooo-api').'</li>';    
-    $o .= '     <li><i class="fa fa-calendar-alt"></i>'.__('create custom form and collect data to our CRM','wooo-api').'</li>';
-    $o .= '     <li><i class="fa fa-calendar-alt"></i>'.__('track user activity and collect data to our CRM','wooo-api').'</li>';
-    $o .= '     <li><i class="fa fa-calendar-alt"></i>'.__('track user cart (and abandoned cart) and collect data to our CRM','wooo-api').'</li>';
-    $o .= ' </ul>';
-    $o .= ' <p>'.__('All features are <strong>GDPR compliant</strong>', 'mrwooo').'</p>';
-    $o .= ' <hr>';   
-    $o .= ' <p>'.__('For any further information take a look to:','mrwooo').'</p>';
-    $o .= ' <p><a href="https://www.wooo.com/?utm_source=wp-admin&utm_medium=link&utm_campaign=wooo&utm_term='.get_site_url().'" title="MrWooo website" target="_new">'.__('Discover our SaaS as email marketing and more', 'mrwooo').'</a></p>';
-    $o .= ' <p><a href="https://www.wooo.com/?utm_source=wp-admin&utm_medium=link&utm_campaign=api&utm_term='.get_site_url().'" title="MrWooo API website" target="_new">'.__('Our API doc, simple and well-written', 'mrwooo').'</a></p>';
-    $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo API plugin</a></p>';    
-    $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo Newsletter plugin</a></p>';    
-    $o .= ' <p class="mrwooo inline"><i class="fab fa-github"></i><a href="#">MrWooo CRM plugin</a></p>';    
-    $o .= ' <hr>';     
-    $o .= ' <p class="mrwooo inline"><i class="fa fa-check"></i><span>'.__('available feature', 'mrwooo').'</span></p>';
-    $o .= ' <p class="mrwooo inline"><i class="fa fa-clock"></i><span>'.__('coming soon', 'mrwooo').'</span></p>';
-    $o .= ' <p class="mrwooo inline"><i class="fa fa-calendar-alt"></i><span>'.__('scheduled for next release', 'mrwooo').'</span></p>';
-    $o .= '</div>';
-    echo $o;
-}
-
-function loggerHtmlMrWoooApi(){
     
     $testListTable = new MRWOOO_LIBS_Utilities_List_Table();
     $testListTable->prepare_items();
