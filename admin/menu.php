@@ -110,6 +110,8 @@ function tabsMrWooo() {
     // tabs  
     $tabs = array(
         'start' => __('Start now', 'mrwooo'),
+        'api' => __('API', 'mrwooo'),
+        'gdpr' => __('GDPR', 'mrwooo'),
         'doc' => __('Documentation', 'mrwooo'),
         'support' => __('Support', 'mrwooo')
     );
@@ -121,8 +123,12 @@ function tabsMrWooo() {
     $o .= ' </h2>';
     
     switch($qstring){
+        case 'page=mrwooo&tab=api':
+            $o .= ' <h3>'.__('API configuration','mrwooo').'</h3>';
+            $o .= ' <p>'.__('Define the list of allowed IPs that you permit to connect via API.', 'mrwooo').'</p>';
+            $o .= add_settings_field();
+            break;
         case 'page=mrwooo&tab=doc':
-            $current = 'doc';
             $o .= ' <h3>'.__('Check out our documentation','mrwooo').'</h3>';
             $o .= ' <p>'.__('We <i class="fa fa-heart"></i> coding RestFull interface to build awesome mobile apps or connect your wordpress website to thirdy part webapps.', 'mrwooo').'</p>';
             $o .= ' <p>'.__('To make all more simple we have dedicated website for each plugin where you\'ll find methods and examples.','mrwooo').'</p>';
@@ -242,7 +248,7 @@ function tabsMrWoooGdpr( $current = 'settings' ) {
             $o .= '   <form id="importUsersData" action="#" enctype="multipart/form-data">';
             $o .= '     <input type="text" name="metakey">';
             $o .= '     <input type="hidden" name="action" value="importUsersData" >';            
-            $o .= '     <input type="hidden" name="'.$metakey.'" multiple="false">';
+            $o .= '     <input type="hidden" name="metakey" multiple="false">';
             $o .= '     <input type="file" id="filename" name="import" multiple="false">';
             $o .= get_submit_button(__('Import Users to data-register (.csv)', 'mrwooo'), 'primary', 'import_users_data', false);            
             $o .= '   </form>';
