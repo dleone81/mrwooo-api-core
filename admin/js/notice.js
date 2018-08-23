@@ -48,7 +48,6 @@ var notice = {
                 default:
                     break;
             }
-
         } else if(method == 'importUsersData') {
             switch(status){
                 case 202:
