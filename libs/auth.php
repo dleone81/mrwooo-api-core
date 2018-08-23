@@ -2,8 +2,8 @@
 	use \Firebase\JWT\JWT;
 
 	class MRWOOO_API_LIBS_Auth {
-		/*
-		*	This method check is user exists
+		/**
+		*	This method check if user exists
 		*	then create and return JWT token
 		*	$data array
 		*
@@ -11,6 +11,12 @@
 			{
 				"user": "your.email@address.com",
 				"password": "yourpassword"
+			}
+
+			or
+
+			{
+				"token": "YOURTOKEN"
 			}
 		*/
 		public static function user($data) {
@@ -25,9 +31,13 @@
 			// else check if user exists, check credentials
 			// return JWT token
 
+			// todo check if ipaddress is allowed
+
 			if(!empty($token)){
 				$res = JWT::decode($token, MRWOOOJWTKEY, array('HS256'));
 				$id = $res->id;
+
+				// log
 				MRWOOO_DB_Logger::create($id, $event.'/:jwt', '200', $remote);
 				return true;
 				

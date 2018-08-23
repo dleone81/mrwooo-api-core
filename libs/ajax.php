@@ -1,5 +1,8 @@
 <?php
     class MRWOOO_API_LIBS_Ajax {
+        /**
+         * This method add a layer during ajax loading
+         */
         public static function loader(){ ?>
             <script type="text/javascript">
                 jQuery(document).ready(function($){
