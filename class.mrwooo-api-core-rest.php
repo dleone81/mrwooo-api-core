@@ -11,7 +11,9 @@ class MRWOOO_API_CORE_REST {
     public static function init_hooks(){
         self::$initiated = true;
 
+        // action
         add_action('admin_menu',    array('MRWOOO_API_ADMIN_Menu','init'));
+        add_action('admin_init',    array('MRWOOO_API_ADMIN_Setting','init'));
         add_action('rest_api_init', array('MRWOOO_API_Auth','init'));
         add_action('rest_api_init', array('MRWOOO_API_Check','init'));
         add_action('mrwooo_api_core_ajax', array('MRWOOO_API_LIBS_Ajax', 'loader'));
